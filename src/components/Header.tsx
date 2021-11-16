@@ -11,11 +11,23 @@ import {
   ChatBubbleOutline,
   Notifications,
   PowerSettingsNew,
+  Search,
 } from '@material-ui/icons';
 
 const useStyles = makeStyles({
   root: {
     backgroundColor: '#fff',
+  },
+  searchInput: {
+    opacity: '0.6',
+    padding: '0px 8px',
+    fontSize: '0.8rem',
+    '&:hover': {
+      backgroundColor: '#f2f2f2',
+    },
+    '& .MuiSvgIcon-root': {
+      marginRight: '8px',
+    },
   },
 });
 
@@ -25,9 +37,13 @@ const Header = () => {
   return (
     <AppBar position='static' className={classes.root}>
       <Toolbar>
-        <Grid container>
+        <Grid container alignItems='center'>
           <Grid item>
-            <InputBase />
+            <InputBase
+              placeholder='Search topics'
+              className={classes.searchInput}
+              startAdornment={<Search fontSize='small' />}
+            />
           </Grid>
 
           <Grid item sm></Grid>
@@ -35,16 +51,16 @@ const Header = () => {
           <Grid item>
             <IconButton>
               <Badge badgeContent={4} color='secondary'>
-                <Notifications />
+                <Notifications fontSize='small' />
               </Badge>
             </IconButton>
             <IconButton>
               <Badge badgeContent={3} color='primary'>
-                <ChatBubbleOutline />
+                <ChatBubbleOutline fontSize='small' />
               </Badge>
             </IconButton>
             <IconButton>
-              <PowerSettingsNew />
+              <PowerSettingsNew fontSize='small' />
             </IconButton>
           </Grid>
         </Grid>
