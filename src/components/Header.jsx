@@ -4,6 +4,7 @@ import {
   Grid,
   IconButton,
   InputBase,
+  makeStyles,
   Toolbar,
 } from '@material-ui/core';
 import {
@@ -12,9 +13,17 @@ import {
   PowerSettingsNew,
 } from '@material-ui/icons';
 
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: '#fff',
+  },
+});
+
 const Header = () => {
+  const classes = useStyles();
+
   return (
-    <AppBar position='static'>
+    <AppBar position='static' className={classes.root}>
       <Toolbar>
         <Grid container>
           <Grid item>
