@@ -4,9 +4,30 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { createTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#333996',
+      light: '#3c44b126',
+    },
+    secondary: {
+      main: '#f83245',
+      light: '#f8324526',
+    },
+    background: {
+      default: '#f4f5fd',
+    },
+  },
+});
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <App />
+      <CssBaseline />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

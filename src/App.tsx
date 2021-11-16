@@ -1,5 +1,6 @@
-import { CssBaseline, makeStyles } from '@material-ui/core';
-import { SideMenu, Header } from 'components';
+import { makeStyles } from '@material-ui/core';
+import { PeopleOutlineTwoTone } from '@material-ui/icons';
+import { SideMenu, Header, PageHeader } from 'components';
 
 const useStyles = makeStyles({
   appMain: {
@@ -16,8 +17,12 @@ function App() {
       <SideMenu />
       <div className={classes.appMain}>
         <Header />
+        <PageHeader
+          title='Page Header'
+          subtitle='Page Subtitle'
+          icon={<PeopleOutlineTwoTone fontSize='large' />}
+        />
       </div>
-      <CssBaseline />
     </>
   );
 }
