@@ -1,4 +1,5 @@
-import { Grid, TextField, makeStyles } from '@material-ui/core';
+import { Grid, TextField } from '@material-ui/core';
+import { Form } from 'components';
 import { useForm } from 'hooks';
 
 const initialFValues = {
@@ -13,21 +14,11 @@ const initialFValues = {
   isPermanent: false,
 };
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& .MuiFormControl-root': {
-      width: '80%',
-      margin: theme.spacing(1),
-    },
-  },
-}));
-
 const EmployeeForm = () => {
-  const classes = useStyles();
   const { values, handleInputChange } = useForm(initialFValues);
 
   return (
-    <form className={classes.root}>
+    <Form>
       <Grid container>
         <Grid item xs={6}>
           <TextField
@@ -47,7 +38,7 @@ const EmployeeForm = () => {
         </Grid>
         <Grid item xs={6}></Grid>
       </Grid>
-    </form>
+    </Form>
   );
 };
 
