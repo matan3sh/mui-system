@@ -1,17 +1,5 @@
 import { Grid, TextField, makeStyles } from '@material-ui/core';
-import { useState, useEffect } from 'react';
-
-type fieldsVTypes = {
-  id: number;
-  fullName: string;
-  email: string;
-  mobile: string;
-  city: string;
-  gender: string;
-  departmentId: string;
-  hireDate: Date;
-  isPermanent: boolean;
-};
+import { useForm } from 'hooks';
 
 const initialFValues = {
   id: 0,
@@ -36,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 const EmployeeForm = () => {
   const classes = useStyles();
-  const [values, setValues] = useState<fieldsVTypes>(initialFValues);
+  const { values, handleInputChange } = useForm(initialFValues);
 
   return (
     <form className={classes.root}>
@@ -45,9 +33,17 @@ const EmployeeForm = () => {
           <TextField
             variant='outlined'
             label='Full Name'
+            name='fullName'
             value={values.fullName}
+            onChange={handleInputChange}
           />
-          <TextField variant='outlined' label='Email' value={values.email} />
+          <TextField
+            variant='outlined'
+            label='Email'
+            name='email'
+            value={values.email}
+            onChange={handleInputChange}
+          />
         </Grid>
         <Grid item xs={6}></Grid>
       </Grid>
