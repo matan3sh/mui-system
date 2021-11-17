@@ -17,6 +17,7 @@ import {
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: '#fff',
+    boxShadow: theme.shadows[2],
   },
   searchInput: {
     opacity: '0.6',

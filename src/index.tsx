@@ -20,6 +20,21 @@ const theme = createTheme({
       default: '#f4f5fd',
     },
   },
+  shape: {
+    borderRadius: 6,
+  },
+  overrides: {
+    MuiAppBar: {
+      root: {
+        transform: 'translateZ(0)',
+      },
+    },
+  },
+  props: {
+    MuiIconButton: {
+      disableRipple: false,
+    },
+  },
 });
 
 ReactDOM.render(
