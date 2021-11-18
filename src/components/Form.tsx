@@ -1,8 +1,9 @@
-import { ReactNode } from 'react';
+import { ReactNode, SyntheticEvent } from 'react';
 import { makeStyles } from '@material-ui/core';
 
 interface FormProps {
   children: ReactNode;
+  onSubmit: (e: SyntheticEvent) => void;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -14,11 +15,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Form = ({ children }: FormProps) => {
+const Form = ({ children, onSubmit }: FormProps) => {
   const classes = useStyles();
 
   return (
-    <form className={classes.root} autoComplete='off'>
+    <form className={classes.root} autoComplete='off' onSubmit={onSubmit}>
       {children}
     </form>
   );

@@ -5,11 +5,12 @@ interface InputProps {
   name: string;
   value: number | string | Date | boolean;
   label: string;
+  error?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const AppInput = (props: InputProps) => {
-  const { name, value, label, onChange } = props;
+  const { name, value, label, onChange, error = null } = props;
 
   return (
     <TextField
@@ -18,6 +19,7 @@ const AppInput = (props: InputProps) => {
       name={name}
       value={value}
       onChange={onChange}
+      {...(error && { error: true, helperText: error })}
     />
   );
 };
