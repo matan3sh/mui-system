@@ -1,14 +1,15 @@
 import { Grid } from '@material-ui/core';
-import { Form } from 'components';
 import { useForm } from 'hooks';
+import { Form } from 'components';
 import {
   AppCheckbox,
   AppInput,
   AppRadioGroup,
   AppSelect,
 } from 'components/controls';
-
 import * as employeeService from 'services/employeeService';
+import AppDatePicker from 'components/controls/AppDatePicker';
+import AppButton from 'components/controls/AppButton';
 
 const genderItems = [
   { id: 'male', title: 'Male' },
@@ -20,7 +21,7 @@ const initialFValues = {
   id: 0,
   fullName: '',
   email: '',
-  mobile: '',
+  phone: '',
   city: '',
   gender: '',
   departmentId: '',
@@ -47,6 +48,18 @@ const EmployeeForm = () => {
             value={values.email}
             onChange={handleInputChange}
           />
+          <AppInput
+            label='Phone'
+            name='phone'
+            value={values.phone}
+            onChange={handleInputChange}
+          />
+          <AppInput
+            label='CIty'
+            name='city'
+            value={values.city}
+            onChange={handleInputChange}
+          />
         </Grid>
 
         <Grid item xs={6}>
@@ -64,12 +77,23 @@ const EmployeeForm = () => {
             onChange={handleInputChange}
             options={employeeService.getDepartmentCollection()}
           />
+          <AppDatePicker
+            name='hireDate'
+            label='Hire Date'
+            onChange={handleInputChange}
+            value={values.hireDate}
+          />
           <AppCheckbox
             name='isPermanent'
             label='Permanent Employee'
             onChange={handleInputChange}
             value={values.isPermanent}
           />
+
+          <div>
+            <AppButton type='submit' text='Submit' />
+            <AppButton color='default' text='Reset' />
+          </div>
         </Grid>
       </Grid>
     </Form>
