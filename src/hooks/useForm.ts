@@ -1,8 +1,7 @@
 import { useState, ChangeEvent } from 'react';
-import { fieldsVTypes } from 'types';
 
-const useForm = (initialFValues: fieldsVTypes) => {
-  const [values, setValues] = useState<fieldsVTypes>(initialFValues);
+const useForm = (initialFValues: any) => {
+  const [values, setValues] = useState<any>(initialFValues);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
