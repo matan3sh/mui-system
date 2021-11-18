@@ -1,7 +1,12 @@
 import { Grid } from '@material-ui/core';
 import { Form } from 'components';
 import { useForm } from 'hooks';
-import { AppInput, AppRadioGroup, AppSelect } from 'components/controls';
+import {
+  AppCheckbox,
+  AppInput,
+  AppRadioGroup,
+  AppSelect,
+} from 'components/controls';
 
 import * as employeeService from 'services/employeeService';
 
@@ -58,6 +63,12 @@ const EmployeeForm = () => {
             value={values.departmentId}
             onChange={handleInputChange}
             options={employeeService.getDepartmentCollection()}
+          />
+          <AppCheckbox
+            name='isPermanent'
+            label='Permanent Employee'
+            onChange={handleInputChange}
+            value={values.isPermanent}
           />
         </Grid>
       </Grid>

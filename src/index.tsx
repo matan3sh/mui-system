@@ -38,12 +38,10 @@ const theme = createTheme({
 });
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-      <CssBaseline />
-    </ThemeProvider>
-  </React.StrictMode>,
+  <ThemeProvider theme={theme}>
+    <App />
+    <CssBaseline />
+  </ThemeProvider>,
   document.getElementById('root')
 );
 
