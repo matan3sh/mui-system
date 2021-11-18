@@ -17,7 +17,11 @@ const useStyles = makeStyles((theme) => ({
 const Form = ({ children }: FormProps) => {
   const classes = useStyles();
 
-  return <form className={classes.root}>{children}</form>;
+  return (
+    <form className={classes.root} autoComplete='off'>
+      {children}
+    </form>
+  );
 };
 
 export default Form;
