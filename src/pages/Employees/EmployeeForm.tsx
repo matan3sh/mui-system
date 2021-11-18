@@ -7,10 +7,10 @@ import {
   AppInput,
   AppRadioGroup,
   AppSelect,
+  AppDatePicker,
+  AppButton,
 } from 'components/controls';
 import * as employeeService from 'services/employeeService';
-import AppDatePicker from 'components/controls/AppDatePicker';
-import AppButton from 'components/controls/AppButton';
 
 const genderItems = [
   { id: 'male', title: 'Male' },
@@ -31,23 +31,37 @@ const initialFValues = {
 };
 
 const EmployeeForm = () => {
-  const { values, errors, setErrors, handleInputChange } =
-    useForm(initialFValues);
+  const validate = (fieldValues = values) => {
+    let temp: any = { ...errors };
 
-  const validate = () => {
-    let temp: any = {};
-    temp.fullName = values.fullName ? '' : 'This field is required.';
-    temp.email = /$^|.+@.+..+/.test(values.email)
-      ? ''
-      : 'This field is required.';
-    temp.phone =
-      values.phone.length > 9 ? '' : 'Minimum 10 characters required.';
-    temp.departmentId =
-      values.departmentId.length !== 0 ? '' : 'This field is required.';
-
+    if ('fullName' in fieldValues) {
+      temp.fullName = fieldValues.fullName ? '' : 'This field is required.';
+    }
+    if ('email' in fieldValues) {
+      temp.email = /$^|.+@.+..+/.test(fieldValues.email)
+        ? ''
+        : 'This field is required.';
+    }
+    if ('phone' in fieldValues) {
+      temp.phone =
+        fieldValues.phone.length > 9 ? '' : 'Minimum 10 characters required.';
+    }
+    if ('departmentId' in fieldValues) {
+      temp.departmentId =
+        fieldValues.departmentId.length !== 0 ? '' : 'This field is required.';
+    }
     setErrors({ ...temp });
-    return Object.values(temp).every((x) => x === '');
+
+    if (fieldValues === values) {
+      return Object.values(temp).every((x) => x === '');
+    }
   };
+
+  const { values, errors, setErrors, handleInputChange, resetForm } = useForm(
+    initialFValues,
+    true,
+    validate
+  );
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -101,6 +115,7 @@ const EmployeeForm = () => {
             name='departmentId'
             label='Department'
             value={values.departmentId}
+            error={errors.departmentId}
             onChange={handleInputChange}
             options={employeeService.getDepartmentCollection()}
           />
@@ -119,7 +134,7 @@ const EmployeeForm = () => {
 
           <div>
             <AppButton type='submit' text='Submit' />
-            <AppButton color='default' text='Reset' />
+            <AppButton color='default' text='Reset' onClick={resetForm} />
           </div>
         </Grid>
       </Grid>
