@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   makeStyles,
   Paper,
@@ -10,11 +10,18 @@ import { PeopleOutlineTwoTone } from '@material-ui/icons';
 
 import { useSelector, useDispatch, RootStateOrAny } from 'react-redux';
 import { getEmployees } from 'store/employeeActions';
-import { EmployeesSliceState } from 'interfaces/employee';
+import { EmployeesSliceState, Employee } from 'interfaces/employee';
 
 import { useTable } from 'hooks';
 import { PageHeader } from 'components';
 import EmployeeForm from './EmployeeForm';
+
+const headCells = [
+  { id: 'fullName', label: 'Employee Name' },
+  { id: 'email', label: 'Email Address' },
+  { id: 'phone', label: 'Phone No.' },
+  { id: 'department', label: 'Department' },
+];
 
 const useStyles = makeStyles((theme) => ({
   pageContent: {
@@ -26,11 +33,35 @@ const useStyles = makeStyles((theme) => ({
 const Employees = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { TableContainer } = useTable();
+  const [filterFn, setFilterFn] = useState({
+    fn: (items: any) => {
+      return items;
+    },
+  });
 
   const { employees }: EmployeesSliceState = useSelector(
     (state: RootStateOrAny) => state.employeesStore
   );
+
+  const {
+    TableContainer,
+    TableHeader,
+    TablePaginationComponent,
+    recordsAfterAction,
+  } = useTable(employees, headCells, filterFn);
+
+  const handleSearch = (e: any) => {
+    let target = e.target;
+    setFilterFn({
+      fn: (items) => {
+        if (target.value === '') return items;
+        else
+          return items.filter((x: any) =>
+            x.fullName.toLowerCase().includes(target.value)
+          );
+      },
+    });
+  };
 
   useEffect(() => {
     dispatch(getEmployees());
@@ -44,10 +75,11 @@ const Employees = () => {
         icon={<PeopleOutlineTwoTone fontSize='large' />}
       />
       <Paper className={classes.pageContent}>
-        <EmployeeForm />
+        {/* <EmployeeForm /> */}
         <TableContainer>
+          <TableHeader />
           <TableBody>
-            {employees.map((employee) => (
+            {recordsAfterAction().map((employee: Employee) => (
               <TableRow key={employee.id}>
                 <TableCell>{employee.fullName}</TableCell>
                 <TableCell>{employee.email}</TableCell>
@@ -57,6 +89,7 @@ const Employees = () => {
             ))}
           </TableBody>
         </TableContainer>
+        <TablePaginationComponent />
       </Paper>
     </>
   );
