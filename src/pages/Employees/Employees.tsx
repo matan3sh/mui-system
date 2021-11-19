@@ -20,9 +20,7 @@ const Employees = () => {
         subtitle='Form design with validation'
         icon={<PeopleOutlineTwoTone fontSize='large' />}
       />
-      <Paper className={classes.pageContent}>
-        <EmployeeForm />
-      </Paper>
+      <Paper className={classes.pageContent}>{/* <EmployeeForm /> */}</Paper>
     </>
   );
 };

@@ -66,7 +66,8 @@ const EmployeeForm = () => {
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     if (validate()) {
-      window.alert('Test');
+      employeeService.insertEmployee(values);
+      resetForm();
     }
   };
 
