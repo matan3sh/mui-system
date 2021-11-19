@@ -1,6 +1,6 @@
 import { SyntheticEvent } from 'react';
 import { useDispatch } from 'react-redux';
-import { addEmployee } from 'store/employeeSlice';
+import { addEmployee } from 'store/employeeActions';
 
 import { Grid } from '@material-ui/core';
 import { useForm } from 'hooks';

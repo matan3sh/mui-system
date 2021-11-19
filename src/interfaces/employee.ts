@@ -8,6 +8,7 @@ export interface Employee {
   departmentId: string;
   hireDate: Date;
   isPermanent: boolean;
+  department: string;
 }
 
 export interface EmployeesSliceState {

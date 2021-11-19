@@ -1,3 +1,4 @@
+import { getDepartmentCollection } from 'services/employeeService';
 import { Employee } from 'interfaces/employee';
 
 type IKeys = {
@@ -31,7 +32,15 @@ class EmployeeApi {
       });
     }
     return new Promise((resolve, reject) => {
-      resolve(JSON.parse(localStorage.getItem(this.KEYS.employees)!));
+      let employees: Employee[] = JSON.parse(
+        localStorage.getItem(this.KEYS.employees)!
+      );
+      let departments = getDepartmentCollection();
+      let res = employees.map((employee) => ({
+        ...employee,
+        department: departments[parseInt(employee.departmentId) - 1].title,
+      }));
+      resolve(res);
     });
   }
 

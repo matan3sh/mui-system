@@ -1,7 +1,6 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
-import EmployeeApi from 'lib/api/employee';
-import { EmployeesSliceState, Employee } from 'interfaces/employee';
+import { createSlice } from '@reduxjs/toolkit';
+import { getEmployees, addEmployee } from './employeeActions';
+import { EmployeesSliceState } from 'interfaces/employee';
 
 const initialState: EmployeesSliceState = {
   employees: [],
@@ -10,22 +9,6 @@ const initialState: EmployeesSliceState = {
   addLoading: null,
   addError: null,
 };
-
-export const getEmployees: any = createAsyncThunk<Employee[]>(
-  'employees/fetchEmployees',
-  async () => {
-    const res = await new EmployeeApi().getAll();
-    return res;
-  }
-);
-
-export const addEmployee: any = createAsyncThunk<Employee, Employee>(
-  'employees/createEmployee',
-  async (data) => {
-    const res = await new EmployeeApi().add(data);
-    return res;
-  }
-);
 
 export const employeesSlice = createSlice({
   name: 'employees',
@@ -45,6 +28,7 @@ export const employeesSlice = createSlice({
       state.getAllLoading = false;
       state.getAllError = payload;
     },
+
     // Add new employee
     [addEmployee.pending]: (state) => {
       state.addLoading = true;

@@ -9,7 +9,7 @@ import {
 import { PeopleOutlineTwoTone } from '@material-ui/icons';
 
 import { useSelector, useDispatch, RootStateOrAny } from 'react-redux';
-import { getEmployees } from 'store/employeeSlice';
+import { getEmployees } from 'store/employeeActions';
 import { EmployeesSliceState } from 'interfaces/employee';
 
 import { useTable } from 'hooks';
@@ -52,6 +52,7 @@ const Employees = () => {
                 <TableCell>{employee.fullName}</TableCell>
                 <TableCell>{employee.email}</TableCell>
                 <TableCell>{employee.phone}</TableCell>
+                <TableCell>{employee.department}</TableCell>
               </TableRow>
             ))}
           </TableBody>
