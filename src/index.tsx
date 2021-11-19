@@ -1,9 +1,10 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { Provider } from 'react-redux';
+import store from 'store';
 import { createTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 
 const theme = createTheme({
@@ -38,10 +39,12 @@ const theme = createTheme({
 });
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <App />
-    <CssBaseline />
-  </ThemeProvider>,
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <App />
+      <CssBaseline />
+    </ThemeProvider>
+  </Provider>,
   document.getElementById('root')
 );
 

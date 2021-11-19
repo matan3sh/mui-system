@@ -28,7 +28,11 @@ export const generateEmployeeId = () => {
 
 export const getAllEmployees = () => {
   if (localStorage.getItem(KEYS.employees) === null) {
-    localStorage.setItem(KEYS.employees, JSON.stringify([]));
+    return new Promise((resolve, reject) => {
+      resolve(localStorage.setItem(KEYS.employees, JSON.stringify([])));
+    });
   }
-  return JSON.parse(localStorage.getItem(KEYS.employees));
+  return new Promise((resolve, reject) => {
+    resolve(JSON.parse(localStorage.getItem(KEYS.employees)));
+  });
 };
