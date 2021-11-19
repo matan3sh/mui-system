@@ -8,18 +8,13 @@ import {
 } from '@material-ui/core';
 import { PeopleOutlineTwoTone } from '@material-ui/icons';
 
-import { useTable } from 'hooks';
-import { PageHeader } from 'components';
-
 import { useSelector, useDispatch, RootStateOrAny } from 'react-redux';
 import { getEmployees } from 'store/employeeSlice';
-import { Employee } from 'interfaces/employee';
+import { EmployeesSliceState } from 'interfaces/employee';
 
+import { useTable } from 'hooks';
+import { PageHeader } from 'components';
 import EmployeeForm from './EmployeeForm';
-
-interface IEmployees {
-  employees: Employee[];
-}
 
 const useStyles = makeStyles((theme) => ({
   pageContent: {
@@ -30,11 +25,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Employees = () => {
   const classes = useStyles();
-
+  const dispatch = useDispatch();
   const { TableContainer } = useTable();
 
-  const dispatch = useDispatch();
-  const { employees }: IEmployees = useSelector(
+  const { employees }: EmployeesSliceState = useSelector(
     (state: RootStateOrAny) => state.employeesStore
   );
 
@@ -50,7 +44,7 @@ const Employees = () => {
         icon={<PeopleOutlineTwoTone fontSize='large' />}
       />
       <Paper className={classes.pageContent}>
-        {/* <EmployeeForm /> */}
+        <EmployeeForm />
         <TableContainer>
           <TableBody>
             {employees.map((employee) => (

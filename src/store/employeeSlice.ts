@@ -1,24 +1,29 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getAllEmployees } from 'services/employeeService';
 
-import { Employee } from 'interfaces/employee';
-
-interface EmployeesSliceState {
-  employees: Employee[];
-  loading: boolean | null;
-  error: boolean | null;
-}
+import EmployeeApi from 'lib/api/employee';
+import { EmployeesSliceState, Employee } from 'interfaces/employee';
 
 const initialState: EmployeesSliceState = {
   employees: [],
-  loading: null,
-  error: null,
+  getAllLoading: null,
+  getAllError: null,
+  addLoading: null,
+  addError: null,
 };
 
-export const getEmployees: any = createAsyncThunk(
+export const getEmployees: any = createAsyncThunk<Employee[]>(
   'employees/fetchEmployees',
   async () => {
-    return await getAllEmployees();
+    const res = await new EmployeeApi().getAll();
+    return res;
+  }
+);
+
+export const addEmployee: any = createAsyncThunk<Employee, Employee>(
+  'employees/createEmployee',
+  async (data) => {
+    const res = await new EmployeeApi().add(data);
+    return res;
   }
 );
 
@@ -27,16 +32,31 @@ export const employeesSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [getEmployees.pending]: (state, action) => {
-      state.loading = true;
+    // Get all employees
+    [getEmployees.pending]: (state) => {
+      state.getAllLoading = true;
     },
     [getEmployees.fulfilled]: (state, { payload }) => {
       state.employees = payload;
-      state.loading = false;
+      state.getAllLoading = false;
+      state.getAllError = false;
     },
     [getEmployees.rejected]: (state, { payload }) => {
-      state.loading = false;
-      state.error = payload;
+      state.getAllLoading = false;
+      state.getAllError = payload;
+    },
+    // Add new employee
+    [addEmployee.pending]: (state) => {
+      state.addLoading = true;
+    },
+    [addEmployee.fulfilled]: (state, { payload }) => {
+      state.employees = [payload, ...state.employees];
+      state.addLoading = false;
+      state.addError = false;
+    },
+    [addEmployee.rejected]: (state, { payload }) => {
+      state.addLoading = false;
+      state.addError = payload;
     },
   },
 });

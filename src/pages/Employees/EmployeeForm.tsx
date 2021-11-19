@@ -1,4 +1,7 @@
 import { SyntheticEvent } from 'react';
+import { useDispatch } from 'react-redux';
+import { addEmployee } from 'store/employeeSlice';
+
 import { Grid } from '@material-ui/core';
 import { useForm } from 'hooks';
 import { Form } from 'components';
@@ -31,6 +34,8 @@ const initialFValues = {
 };
 
 const EmployeeForm = () => {
+  const dispatch = useDispatch();
+
   const validate = (fieldValues = values) => {
     let temp: any = { ...errors };
 
@@ -66,7 +71,7 @@ const EmployeeForm = () => {
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     if (validate()) {
-      employeeService.insertEmployee(values);
+      dispatch(addEmployee(values));
       resetForm();
     }
   };
